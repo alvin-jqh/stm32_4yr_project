@@ -25,6 +25,7 @@
 #include "usbd_hid.h"
 #include "ball.h"
 #include "math.h"
+#include "filter.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -64,6 +65,10 @@ extern USBD_HandleTypeDef hUsbDeviceFS;
 
 // create struct for the ball
 trackball ball;
+
+// create struct for the filter
+lpfilter filterx, filtery;
+float alpha;
 
 /* USER CODE END PV */
 
@@ -106,8 +111,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim2){
 //	mouse_data.mouse_x = copysign(50*x*x, x);
 //	mouse_data.mouse_y = copysign(50*y*y, y);
 
-	mouse_data.mouse_x = 20*x;
-	mouse_data.mouse_y = 20*y;
+	mouse_data.mouse_x = filter_update(&filterx, 20 * x);;
+	mouse_data.mouse_y = filter_update(&filtery, 20 * y);
 
 	USBD_HID_SendReport(&hUsbDeviceFS, (uint8_t *)&mouse_data, sizeof(mouse_data));
 
@@ -125,7 +130,20 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+	ball.i2cHandle = &hi2c1;
+	ball.left = 0;
+	ball.right = 0;
+	ball.up = 0;
+	ball.down = 0;
 
+	ball.sw_pressed = 0;
+	ball.sw_changed = 0;
+
+	//	initialise the filter
+
+	alpha = 0.05f;
+	filter_init(&filterx, alpha);
+	filter_init(&filtery, alpha);
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
