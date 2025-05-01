@@ -1,0 +1,13 @@
+../Core/Src/bno055.c:40:9:BNO_INIT	32	static
+../Core/Src/bno055.c:148:19:BNO_ReadAcceleration	32	static
+../Core/Src/bno055.c:167:19:BNO_ReadGyro	32	static
+../Core/Src/bno055.c:187:19:BNO_ReadMag	32	static
+../Core/Src/bno055.c:207:19:BNO_ReadEul	32	static
+../Core/Src/bno055.c:227:19:BNO_ReadQuart	40	static
+../Core/Src/bno055.c:249:19:BNO_ReadCal	24	static
+../Core/Src/bno055.c:267:12:quaternion_multiply	64	static
+../Core/Src/bno055.c:278:12:quaternion_conjugate	64	static
+../Core/Src/bno055.c:289:19:BNO_ReadRegister	40	static
+../Core/Src/bno055.c:293:19:BNO_ReadRegisters	40	static
+../Core/Src/bno055.c:298:19:BNO_WriteRegister	40	static
+../Core/Src/bno055.c:302:19:BNO_WriteRegisters	40	static
